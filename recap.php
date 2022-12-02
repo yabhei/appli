@@ -5,6 +5,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,65 +14,65 @@ session_start();
     <link rel="stylesheet" href="style.css">
     <title>Récapitulatif des produits</title>
 </head>
+
 <body>
 
 
     <?php
-    
-   
-    if(!isset($_SESSION['products']) || empty($_SESSION['products'])){
-        echo "<p>Aucun produit en session...</p>";
-    }else{
-        echo "<table class='table'>",
-                "<thead>",
-                   " <tr>",
-                        "<th>#</th>",
-                        "<th>Nom</th>",
-                        "<th>Prix</th>",
-                        "<th>Quantité</th>",
-                       " <th>Total</th>",
-                   " </tr>",
-               " </thead>",
-                "<tbody>";
-                
-        $totalGeneral=0;
-        foreach($_SESSION['products'] as $index => $product){
-           echo "<tr class='success'>",
-                     "<td>".$index."</td>",
-                    " <td>".$product['name']."</td>",
-                    " <td>".number_format($product['price'],2,",","&nbsp;")."&nbsp;£</td>",
-                    " <td> <button  onclick='Sub()'>-</button> ".$product['qtt']." <button  onclick='Add()'>+</button></td>",
-                    " <td>".number_format($product['total'],2,",","&nbsp;")."&nbsp;£</td>",
 
-                " </tr>";
-                $totalGeneral+=$product['total'];
-        }        
+    $count;
+    if (!isset($_SESSION['products']) || empty($_SESSION['products'])) {
+        echo "<p>Aucun produit en session...</p>";
+    } else {
+        echo "<table class='table'>",
+        "<thead>",
+        " <tr>",
+        "<th>#</th>",
+        "<th>Nom</th>",
+        "<th>Prix</th>",
+        "<th>Quantité</th>",
+        " <th>Total</th>",
+        " <th>Suprimer</th>",
+        " </tr>",
+
+        " </thead>",
+        "<tbody>";
+
+        $totalGeneral = 0;
+        $count = 0;
+        foreach ($_SESSION['products'] as $index => $product) {
+            echo "<tr class='success'>",
+            "<td>" . $index . "</td>",
+            " <td>" . $product['name'] . "</td>",
+            " <td>" . number_format($product['price'], 2, ",", "&nbsp;") . "&nbsp;£</td>",
+            " <td><a href=traitement.php?action=down_qtt&id=" . $index . ">   <input id='plus' type='image' src='929430.png'>  </a>" . $product['qtt'] . "<a href=traitement.php?action=up_qtt&id=" . $index . "   >  <input id='plus' type='image' src='plus.png'> </a></td>",
+            " <td>" . number_format($product['total'], 2, ",", "&nbsp;") . "&nbsp;£</td>",
+            "<td><a href=traitement.php?action=delete&id=" . $index . " style='font-size:3em;'> 🗑 </a></td>",
+
+            " </tr>";
+            $totalGeneral += $product['total'];
+            $count++;
+        }
         echo "<tr class='danger'>",
         " <td colspan=4>Total général</td>",
-        " <td><strong>".number_format($totalGeneral,2,",","&nbsp;")."&nbsp;£</strong></td>",
-        
-             "</tr>";
-                
+        " <td><strong>" . number_format($totalGeneral, 2, ",", "&nbsp;") . "&nbsp;£</strong></td>",
+        "<td></td>";
+        echo "<tr class='danger'>",
+        " <td colspan=4>Number of products </td>",
+        " <td><strong>" . $count . "</strong></td>",
+        "<td></td>",
+
+        "</tr>";
+
         echo     "</tbody>",
-             "</table>";
-    }
-    
-    // var_dump($_SESSION);
-    
-    function Add(){
-        $ad = $_SESSION['products']['qtt']++;
-       $_SESSION['products']['qtt']=$ad;
-
+        "</table>";
     }
 
-    function Sub(){
-        $su = $_SESSION['products']['qtt']--;
-       $_SESSION['products']['qtt']=$su;
 
-    }
-    
+
     ?>
-
-<button class="button" onclick="location.href='index.php';"><span>Go To Formulaire Page </span></button>
+    <button class="button" id="vid" onclick="location.href='index.php';"><span><a href="traitement.php?action=clear" style="color: aliceblue">Empty the table</a> </span></button><br />
+    <button class="button" onclick="location.href='index.php';"><span>Go To Formulaire Page </span></button>
 </body>
+
 </html>
