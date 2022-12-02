@@ -45,24 +45,31 @@ session_start();
             "<td>" . $index . "</td>",
             " <td>" . $product['name'] . "</td>",
             " <td>" . number_format($product['price'], 2, ",", "&nbsp;") . "&nbsp;£</td>",
-            " <td><a href=traitement.php?action=down_qtt&id=" . $index . ">   <input id='plus' type='image' src='929430.png'>  </a>" . $product['qtt'] . "<a href=traitement.php?action=up_qtt&id=" . $index . "   >  <input id='plus' type='image' src='plus.png'> </a></td>",
+            " <td><a href=traitement.php?action=down_qtt&id=" . $index . "> <input id='plus' type='image' src='929430.png'></a>  " . $product['qtt'] . "<a href=traitement.php?action=up_qtt&id=" . $index . "   > <input id='plus' type='image' src='plus.png'></a></td>",
             " <td>" . number_format($product['total'], 2, ",", "&nbsp;") . "&nbsp;£</td>",
             "<td><a href=traitement.php?action=delete&id=" . $index . " style='font-size:3em;'> 🗑 </a></td>",
 
             " </tr>";
             $totalGeneral += $product['total'];
-            $count++;
+            $count += $product['qtt'];
+        }
+        if (isset($_SESSION['message'])) {
+            echo $_SESSION['message'];
+
+            unset($_SESSION['message']);
         }
         echo "<tr class='danger'>",
-        " <td colspan=4>Total général</td>",
-        " <td><strong>" . number_format($totalGeneral, 2, ",", "&nbsp;") . "&nbsp;£</strong></td>",
-        "<td></td>";
-        echo "<tr class='danger'>",
-        " <td colspan=4>Number of products </td>",
-        " <td><strong>" . $count . "</strong></td>",
-        "<td></td>",
+        " <td colspan=3>Total général</td>",
+        "  <td><strong>" . $count . " products</strong></td>",
+        " <td colspan=1><strong>" . number_format($totalGeneral, 2, ",", "&nbsp;") . "&nbsp;£</strong></td>",
+        "<td><a href='traitement.php?action=clear' style='font-size:3em;'> 🗑 </a></td>";
 
-        "</tr>";
+        // echo "<tr class='danger'>",
+        // " <td colspan=4>Number of products </td>",
+        // " <td><strong>" . $count . "</strong></td>",
+        // "<td></td>",
+
+        // "</tr>";
 
         echo     "</tbody>",
         "</table>";

@@ -25,7 +25,7 @@ if (isset($_GET["action"])) {
                     $_SESSION['products'][] = $product;
 
 
-                    $_SESSION['message'] = "<p class=success style=\"color:white;\">Added successfully</p>";
+                    $_SESSION['message'] = "<p class=success style=\"color:white;\">" . $product['name'] . " Added successfully</p>";
                     header("Location:index.php");
 
 
@@ -40,8 +40,9 @@ if (isset($_GET["action"])) {
             }
 
         case "delete":
-
+             $_SESSION['message'] = "<p class=del style=\"color:white;\">You have deleted " . $_SESSION['products'][$_GET['id']]['name'] . " </p>";
             unset($_SESSION['products'][$_GET['id']]);
+
             header("Location:recap.php");
             break;
 
@@ -51,11 +52,14 @@ if (isset($_GET["action"])) {
             break;
 
         case "down_qtt":
-            if ($_SESSION['products'][$_GET['id']]['qtt'] != 0) {
+            if ($_SESSION['products'][$_GET['id']]['qtt'] > 1) {
+
                 $_SESSION['products'][$_GET['id']]['qtt']--;
+                $_SESSION['message'] = "<p class=error style=\"color:white;\">You have decreased the quantity of " . $_SESSION['products'][$_GET['id']]['name'] . " </p>";
                 header("Location:recap.php");
                 break;
             } else {
+                $_SESSION['message'] = "<p class=del style=\"color:white;\">You have deleted " . $_SESSION['products'][$_GET['id']]['name'] . " </p>";
                 unset($_SESSION['products'][$_GET['id']]);
                 header("Location:recap.php");
                 break;
@@ -63,6 +67,7 @@ if (isset($_GET["action"])) {
 
         case "up_qtt":
             $_SESSION['products'][$_GET['id']]['qtt']++;
+            $_SESSION['message'] = "<p class=success style=\"color:white;\">You have increased the quantity of " . $_SESSION['products'][$_GET['id']]['name'] . " </p>";
             header("Location:recap.php");
             break;
     }
