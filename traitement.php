@@ -27,9 +27,6 @@ if (isset($_GET["action"])) {
 
                     $_SESSION['message'] = "<p class=success style=\"color:white;\">" . $product['name'] . " Added successfully</p>";
                     header("Location:index.php");
-
-
-
                     break;
                 } else {
                     $_SESSION['message'] = "<p class=error style=\"color:white;\">Error : Add field</p>";

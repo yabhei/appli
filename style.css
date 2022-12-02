@@ -9,10 +9,14 @@
   text-align: center;
 }
 
-.del{
+.del {
   background-color: rgb(56, 56, 177);
   text-align: center;
-  
+
+}
+
+.hed {
+  background-color: rgb(34, 34, 66);
 }
 
 #plus {

@@ -25,7 +25,7 @@ session_start();
         echo "<p>Aucun produit en session...</p>";
     } else {
         echo "<table class='table'>",
-        "<thead>",
+        "<thead class='hed' style=\"color:white;\">",
         " <tr>",
         "<th>#</th>",
         "<th>Nom</th>",
