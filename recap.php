@@ -51,7 +51,7 @@ session_start();
 
             " </tr>";
             $totalGeneral += $product['total'];
-            $count += $product['qtt'];
+            $count++;
         }
         if (isset($_SESSION['message'])) {
             echo $_SESSION['message'];
